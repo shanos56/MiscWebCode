@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+
+        .binary_numbers, .binary_cols {
+            text-align:center;
+
+        }
+
+            .binary_cols {
+                border-bottom:.25em solid #ccc;
+            }
+
+            .binary_boxes, .binary_numbers, .binary_cols {
+                padding: 1em;
+                margin: auto;
+                width: 30em;
+            }
+
+            .binary_boxes span  {
+                border: 2px solid #c21807;
+            }
+
+
+            .binary_boxes span:hover {
+                cursor: pointer;
+                background: #c21807;
+            }
+
+            .binary_numbers span, .binary_boxes span, .binary_cols span {
+                display: inline-block;
+                width: 2em;
+                height: 2em;
+                margin-right: 1em;
+            }
+
+            .binary_numbers span, .binary_cols span {
+                width: 2.25em;
+            }
+
+            sup {
+                font-size:0.7em;
+                vertical-align:super;
+            }
+    </style>
+
+
+    <script type="text/javascript">
+
+
+        function setCharAt(str, index, chr) {
+            if (index > str.length - 1) return str;
+            return str.substring(0, index) + chr + str.substring(index + 1);
+        }
+
+
+        document.addEventListener("DOMContentLoaded", (e) => {
+
+
+
+            var binary = "00000000";
+
+            var click = function (e) {
+                var attr = "0";
+
+         
+
+                if (!this.hasAttribute('state')) {
+                    this.setAttribute("state", attr);
+                }
+
+                if (this.getAttribute('state') == "1") {
+                 
+                    this.style.background = "#fff"
+                    attr = "0";
+
+                } else {
+                    attr = "1";
+                    this.style.background = "#c21807"
+                }
+                var count = parseInt(this.getAttribute('count'));
+                var numbers = document.getElementsByClassName('binary_numbers')[0];
+                var number = numbers.getElementsByTagName('span')[count];
+                number.innerHTML = attr;
+                binary = setCharAt(binary, count, attr);
+                var dec = parseInt(binary, 2);
+                document.getElementById("base10").innerHTML = dec;
+                document.getElementById("hexadecimal").innerHTML = "0x"+dec.toString(16);
+                this.setAttribute("state", attr);
+
+            };
+            var boxes = document.getElementsByClassName("binary_boxes")[0];
+           
+            var children = boxes.getElementsByTagName('span');
+
+            for (var i = 0; i < children.length; i++) {
+                
+ 
+                children[i].setAttribute("state", "0");
+                children[i].setAttribute("count", i.toString());
+
+              
+                children[i].addEventListener("click", click.bind(children[i]));
+
+          
+            }
+            var dec = parseInt(binary, 2);
+            document.getElementById("base10").innerHTML = dec;
+            document.getElementById("hexadecimal").innerHTML = "0x" + dec.toString(16);
+
+
+        });
+
+
+
+    </script>
+</head>
+<body>
+
+
+
+    <div class="binary_cols">
+
+        <span>128
+        (2<sup>7</sup>)
+        </span>
+        <span>64  (2<sup>6</sup>)</span>
+        <span>32 (2<sup>5</sup>)</span>
+        <span>16 (2<sup>4</sup>)</span>
+        <span>8 (2<sup>3</sup>)</span>
+        <span>4 (2<sup>2</sup>)</span>
+        <span>2 (2<sup>1</sup>)</span>
+        <span>1 (2<sup>0</sup>)</span>
+
+
+
+    </div>
+
+
+
+    <div class="binary_numbers">
+
+        <span>0</span>
+        <span>0</span>
+        <span>0</span>
+        <span>0</span>
+        <span>0</span>
+        <span>0</span>
+        <span>0</span>
+        <span>0</span>
+
+
+
+    </div>
+
+
+    <div class="binary_boxes">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+
+
+    </div>
+
+
+    <table border="1" style="margin:auto">
+        <tr>
+            <td>Base 10</td>
+            <td>hex</td>
+        </tr>
+        <tr>
+            <td id="base10"></td>
+            <td id="hexadecimal"></td>
+        </tr>
+
+    </table>
+
+
+
+</body>
+</html>
